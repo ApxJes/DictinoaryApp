@@ -3,17 +3,17 @@ package com.example.dictonaryapp.data.local.entity
 import androidx.room.TypeConverter
 import com.example.dictonaryapp.data.util.GsonParser
 import com.example.dictonaryapp.domain.model.Meaning
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class Converters(
-    private val jsonParer: GsonParser
-) {
+class Converters {
+    private val jsonParer = GsonParser(Gson())
 
     @TypeConverter
     fun fromMeaningJson(json: String): List<Meaning> {
         return jsonParer.fromJson<ArrayList<Meaning>>(
             json,
-            object: TypeToken<ArrayList<Meaning>>(){}.type
+            object : TypeToken<ArrayList<Meaning>>() {}.type
         ) ?: emptyList()
     }
 
@@ -21,8 +21,7 @@ class Converters(
     fun toMeaningJson(meaning: List<Meaning>): String {
         return jsonParer.toJson(
             meaning,
-            object: TypeToken<ArrayList<Meaning>>(){}.type
+            object : TypeToken<ArrayList<Meaning>>() {}.type
         ) ?: "[]"
     }
-
 }
