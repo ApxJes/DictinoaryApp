@@ -1,5 +1,6 @@
 package com.example.dictonaryapp.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dictonaryapp.core.util.SimpleResource
@@ -42,14 +43,16 @@ class GetWordInfoViewModel @Inject constructor(
                 .onEach { result ->
                     when(result) {
                         is SimpleResource.Success -> {
-                            _state.value.copy(
+                            _state.value = _state.value.copy(
                                 wordInfoItem = result.data ?: emptyList(),
                                 isLoading = false
                             )
+
+                            Log.d("ViewModel", "State updated: $_state")
                         }
 
                         is SimpleResource.Error -> {
-                            _state.value.copy(
+                            _state.value = _state.value.copy(
                                 wordInfoItem = result.data ?: emptyList(),
                                 isLoading = false
                             )
@@ -59,13 +62,13 @@ class GetWordInfoViewModel @Inject constructor(
                         }
 
                         is SimpleResource.Loading -> {
-                            _state.value.copy(
+                            _state.value = _state.value.copy(
                                 wordInfoItem = result.data ?: emptyList(),
                                 isLoading = true
                             )
                         }
                     }
-                }.launchIn(this)
+                }.launchIn(viewModelScope)
         }
     }
 

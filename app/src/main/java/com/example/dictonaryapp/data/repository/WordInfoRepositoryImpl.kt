@@ -1,5 +1,6 @@
 package com.example.dictonaryapp.data.repository
 
+import android.util.Log
 import com.example.dictonaryapp.core.util.SimpleResource
 import com.example.dictonaryapp.data.local.entity.WordInfoDao
 import com.example.dictonaryapp.data.remote.DictionaryApi
@@ -26,6 +27,8 @@ class WordInfoRepositoryImpl @Inject constructor(
             dao.deleteWordInfo(remoteWordInfo.map { it.word })
             dao.insertWordInfo(remoteWordInfo.map { it.toWordInfoEntity() })
 
+            Log.d("WordInfoRepo", "Received API data: $remoteWordInfo")
+
         } catch (e: HttpException) {
             emit(
                 SimpleResource.Error(
@@ -47,5 +50,8 @@ class WordInfoRepositoryImpl @Inject constructor(
 
         val newWordInfo = dao.getWordInfo(word).map { it.toWordInfo() }
         emit(SimpleResource.Success(newWordInfo))
+        
+        Log.d("WordInfoRepo", "Stored in DB: $newWordInfo")
+
     }
 }

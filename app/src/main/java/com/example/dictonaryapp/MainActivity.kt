@@ -3,6 +3,7 @@ package com.example.dictonaryapp
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -79,19 +80,23 @@ class MainActivity : AppCompatActivity() {
                     resultText.append(wordInfo.word).append("\n")
 
                     if(wordInfo.meanings.isNotEmpty()) {
-                        val meaning = wordInfo.meanings[0]
+                        for(meaning in wordInfo.meanings) {
+                            resultText.append("     Part of speech: ${meaning.partOfSpeech}\n")
 
-                        resultText.append("     Part of speech: ${wordInfo.meanings}\n")
-
-                        if(meaning.definitions.isNotEmpty()) {
-                            val definition = meaning.definitions[0]
-
-                            resultText.append("     Definition: ${meaning.definitions}\n")
+                            if(meaning.definitions.isNotEmpty()) {
+                                for(definition in meaning.definitions) {
+                                    resultText.append("     Definition: ${definition.definition}\n")
+                                    if(!definition.example.isNullOrBlank()) {
+                                        resultText.append("     Example: ${definition.example}\n")
+                                    }
+                                }
+                            }
                         }
                     }
                 }
 
                 binding.txvWordInfo.text = resultText.toString()
+                Log.d("MainActivity", "State recieved: ${state.wordInfoItem}")
             }
         }
 
