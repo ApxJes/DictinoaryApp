@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "4d7ba4673e773e770db50e34253da91e",
+    "version": 2,
+    "identityHash": "520c6b8a5b1739e93afd4eb1a9e8a853",
     "entities": [
       {
         "tableName": "dictionary_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`meanings` TEXT NOT NULL, `origin` TEXT, `phonetic` TEXT NOT NULL, `word` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`meanings` TEXT NOT NULL, `origin` TEXT, `phonetic` TEXT, `word` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "meanings",
@@ -24,7 +24,7 @@
             "fieldPath": "phonetic",
             "columnName": "phonetic",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "word",
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4d7ba4673e773e770db50e34253da91e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '520c6b8a5b1739e93afd4eb1a9e8a853')"
     ]
   }
 }

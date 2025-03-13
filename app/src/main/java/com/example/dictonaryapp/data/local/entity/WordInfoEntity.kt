@@ -8,8 +8,8 @@ import com.example.dictonaryapp.domain.model.WordInfo
 @Entity(tableName = "dictionary_table")
 data class WordInfoEntity(
     val meanings: List<Meaning>,
-    val origin: String,
-    val phonetic: String,
+    val origin: String?,
+    val phonetic: String?,
     val word: String,
 
     @PrimaryKey(autoGenerate = true)

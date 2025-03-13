@@ -22,7 +22,6 @@ class WordInfoRepositoryImpl @Inject constructor(
         emit(SimpleResource.Loading(wordInfo))
 
         try {
-
             val remoteWordInfo = api.getWordInfo(word)
             dao.deleteWordInfo(remoteWordInfo.map { it.word })
             dao.insertWordInfo(remoteWordInfo.map { it.toWordInfoEntity() })
@@ -34,6 +33,8 @@ class WordInfoRepositoryImpl @Inject constructor(
                     data = wordInfo
                 )
             )
+            return@flow
+
         } catch (e: IOException) {
             emit(
                 SimpleResource.Error(
@@ -41,9 +42,10 @@ class WordInfoRepositoryImpl @Inject constructor(
                     data = wordInfo
                 )
             )
+            return@flow
         }
 
         val newWordInfo = dao.getWordInfo(word).map { it.toWordInfo() }
-        SimpleResource.Success(newWordInfo)
+        emit(SimpleResource.Success(newWordInfo))
     }
 }

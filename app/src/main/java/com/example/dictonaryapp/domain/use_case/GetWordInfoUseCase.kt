@@ -5,8 +5,9 @@ import com.example.dictonaryapp.domain.model.WordInfo
 import com.example.dictonaryapp.domain.repository.WordInfoRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GetWordInfoUseCase(
+class GetWordInfoUseCase @Inject constructor(
     private val repository: WordInfoRepository
 ) {
 
