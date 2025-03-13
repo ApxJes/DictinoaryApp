@@ -81,13 +81,13 @@ class MainActivity : AppCompatActivity() {
 
                     if(wordInfo.meanings.isNotEmpty()) {
                         for(meaning in wordInfo.meanings) {
-                            resultText.append("     Part of speech: ${meaning.partOfSpeech}\n")
+                            resultText.append("   --  Part of speech: ${meaning.partOfSpeech}\n")
 
                             if(meaning.definitions.isNotEmpty()) {
                                 for(definition in meaning.definitions) {
-                                    resultText.append("     Definition: ${definition.definition}\n")
+                                    resultText.append("   --  Definition: ${definition.definition}\n")
                                     if(!definition.example.isNullOrBlank()) {
-                                        resultText.append("     Example: ${definition.example}\n")
+                                        resultText.append("  --  Example: ${definition.example}\n")
                                     }
                                 }
                             }

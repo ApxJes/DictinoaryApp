@@ -15,9 +15,13 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/edtSearchWord"
-        android:hint="Search" />
+        android:hint="Search"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:padding="8dp"
+        android:background="@drawable/search_background"/>
 
     <TextView
         android:layout_width="wrap_content"
