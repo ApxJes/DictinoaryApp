@@ -12,7 +12,7 @@ data class WordInfoDto(
     fun toWordInfoEntity(): WordInfoEntity {
         return WordInfoEntity(
             meanings = meanings.map { it.toMeaning() },
-            origin = origin,
+            originIs = origin,
             phonetic = phonetic,
             word = word
         )

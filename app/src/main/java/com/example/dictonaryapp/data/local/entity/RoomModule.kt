@@ -17,21 +17,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
-    private val Migration_2_3 = object : Migration(2, 3) {
-        override fun migrate(db: SupportSQLiteDatabase) {
-            db.execSQL("DROP TABLE IF EXISTS 'dictionary_table'")
-
-            db.execSQL(
-                "CREATE TABLE 'dictionary_table' (" +
-                        "'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "'meanings' TEXT NOT NULL, " +
-                        "'origin' TEXT, " +
-                        "'phonetic' TEXT, " +
-                        "'word' TEXT NOT NULL)"
-            )
-        }
-    }
-
     @Singleton
     @Provides
     fun providesRoomInstance(
@@ -40,7 +25,7 @@ object RoomModule {
         context.applicationContext,
         WordInfoDatabase::class.java,
         "wordInfo_db"
-    ).addMigrations( Migration_2_3).build()
+    ).build()
 
     @Singleton
     @Provides

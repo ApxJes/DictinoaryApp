@@ -8,7 +8,7 @@ import com.example.dictonaryapp.domain.model.WordInfo
 @Entity(tableName = "dictionary_table")
 data class WordInfoEntity(
     val meanings: List<Meaning>,
-    val origin: String?,
+    val originIs: String?,
     val phonetic: String?,
     val word: String,
 
@@ -18,7 +18,7 @@ data class WordInfoEntity(
     fun toWordInfo(): WordInfo {
         return WordInfo(
             meanings = meanings,
-            origin = origin,
+            origin = originIs,
             phonetic = phonetic,
             word = word
         )

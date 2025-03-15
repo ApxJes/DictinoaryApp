@@ -5,21 +5,18 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import com.example.dictonaryapp.databinding.ActivityMainBinding
 import com.example.dictonaryapp.presentation.viewModel.GetWordInfoViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -81,13 +78,13 @@ class MainActivity : AppCompatActivity() {
 
                     if(wordInfo.meanings.isNotEmpty()) {
                         for(meaning in wordInfo.meanings) {
-                            resultText.append("   --  Part of speech: ${meaning.partOfSpeech}\n")
+                            resultText.append("   -  Part of speech: ${meaning.partOfSpeech}\n")
 
                             if(meaning.definitions.isNotEmpty()) {
                                 for(definition in meaning.definitions) {
-                                    resultText.append("   --  Definition: ${definition.definition}\n")
+                                    resultText.append("   -   Definition: ${definition.definition}\n")
                                     if(!definition.example.isNullOrBlank()) {
-                                        resultText.append("  --  Example: ${definition.example}\n")
+                                        resultText.append("  -   Example: ${definition.example}\n")
                                     }
                                 }
                             }
@@ -103,8 +100,8 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             viewModel.eventFlow.collect { event ->
                 when(event) {
-                    is GetWordInfoViewModel.UiEvent.ShowSnackBar -> {
-                        Snackbar.make(binding.root, event.message, Snackbar.LENGTH_SHORT).show()
+                    is GetWordInfoViewModel.UiEvent.ToastMessage -> {
+                        Toast.makeText(this@MainActivity, event.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
